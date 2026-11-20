@@ -1,21 +1,21 @@
-Name,Industry,Phone,BillingCity,BillingState,NumberOfEmployees,Description
-RFPOC-BULK-SAMPLE-00001 Company 2824,Healthcare,555-350-4657,Atlanta,GA,1148,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00002 Company 2679,Consulting,555-532-1520,Chicago,IL,249,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00003 Company 2535,Technology,555-617-1434,Austin,TX,4602,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00004 Company 4257,Technology,555-559-5557,Miami,FL,58,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00005 Company 3615,Manufacturing,555-384-3547,Miami,FL,1768,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00006 Company 6514,Banking,555-489-2584,Chicago,IL,2945,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00007 Company 6635,Insurance,555-847-8527,Denver,CO,4397,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00008 Company 3045,Banking,555-665-5803,Miami,FL,2967,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00009 Company 4150,Insurance,555-777-4733,Chicago,IL,2375,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00010 Company 2307,Banking,555-489-5554,Austin,TX,3719,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00011 Company 6977,Manufacturing,555-463-4432,Boston,MA,2192,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00012 Company 2169,Transportation,555-846-5010,Boston,MA,1343,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00013 Company 8573,Healthcare,555-755-4598,Miami,FL,2661,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00014 Company 1916,Insurance,555-924-6168,Austin,TX,3291,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00015 Company 5386,Technology,555-680-6155,Chicago,IL,1746,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00016 Company 9179,Energy,555-246-5339,Miami,FL,1148,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00017 Company 5040,Consulting,555-538-7543,Denver,CO,2970,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00018 Company 4593,Transportation,555-605-2489,Boston,MA,390,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00019 Company 2796,Finance,555-911-7916,Boston,MA,4890,Synthetic test data from run SAMPLE
-RFPOC-BULK-SAMPLE-00020 Company 2040,Retail,555-710-8668,Miami,FL,4339,Synthetic test data from run SAMPLE
+Name,Industry,Phone,BillingCity,BillingState,BillingCountry,NumberOfEmployees,Description
+RFPOC-BULK-SAMPLE-00001 Company 2824,Healthcare,555-350-4657,Atlanta,Georgia,United States,1148,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00002 Company 2679,Consulting,555-532-1520,Chicago,Illinois,United States,249,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00003 Company 2535,Technology,555-617-1434,Austin,Texas,United States,4602,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00004 Company 4257,Technology,555-559-5557,Miami,Florida,United States,58,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00005 Company 3615,Manufacturing,555-384-3547,Miami,Florida,United States,1768,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00006 Company 6514,Banking,555-489-2584,Chicago,Illinois,United States,2945,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00007 Company 6635,Insurance,555-847-8527,Denver,Colorado,United States,4397,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00008 Company 3045,Banking,555-665-5803,Miami,Florida,United States,2967,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00009 Company 4150,Insurance,555-777-4733,Chicago,Illinois,United States,2375,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00010 Company 2307,Banking,555-489-5554,Austin,Texas,United States,3719,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00011 Company 6977,Manufacturing,555-463-4432,Boston,Massachusetts,United States,2192,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00012 Company 2169,Transportation,555-846-5010,Boston,Massachusetts,United States,1343,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00013 Company 8573,Healthcare,555-755-4598,Miami,Florida,United States,2661,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00014 Company 1916,Insurance,555-924-6168,Austin,Texas,United States,3291,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00015 Company 5386,Technology,555-680-6155,Chicago,Illinois,United States,1746,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00016 Company 9179,Energy,555-246-5339,Miami,Florida,United States,1148,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00017 Company 5040,Consulting,555-538-7543,Denver,Colorado,United States,2970,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00018 Company 4593,Transportation,555-605-2489,Boston,Massachusetts,United States,390,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00019 Company 2796,Finance,555-911-7916,Boston,Massachusetts,United States,4890,Synthetic test data from run SAMPLE
+RFPOC-BULK-SAMPLE-00020 Company 2040,Retail,555-710-8668,Miami,Florida,United States,4339,Synthetic test data from run SAMPLE

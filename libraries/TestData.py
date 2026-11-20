@@ -21,10 +21,10 @@ except ImportError:  # pragma: no cover
 
 INDUSTRIES = ["Insurance", "Banking", "Finance", "Technology", "Healthcare",
               "Manufacturing", "Retail", "Energy", "Transportation", "Consulting"]
-CITIES = [("Atlanta", "GA"), ("Chicago", "IL"), ("Boston", "MA"), ("Austin", "TX"),
-          ("Denver", "CO"), ("Seattle", "WA"), ("Miami", "FL"), ("Phoenix", "AZ")]
+CITIES = [("Atlanta", "Georgia"), ("Chicago", "Illinois"), ("Boston", "Massachusetts"), ("Austin", "Texas"),
+          ("Denver", "Colorado"), ("Seattle", "Washington"), ("Miami", "Florida"), ("Phoenix", "Arizona")]
 ACCOUNT_HEADERS = ["Name", "Industry", "Phone", "BillingCity", "BillingState",
-                   "NumberOfEmployees", "Description"]
+                   "BillingCountry", "NumberOfEmployees", "Description"]
 
 
 def _run_id() -> str:
@@ -46,6 +46,8 @@ def account_rows(rows: int, prefix: str, run_id: str, seed: int | None = None) -
             "Phone": f"555-{rng.randint(100, 999)}-{rng.randint(1000, 9999)}",
             "BillingCity": city,
             "BillingState": state,
+            # Orgs with State/Country picklists reject a state without a country.
+            "BillingCountry": "United States",
             "NumberOfEmployees": str(rng.randint(5, 5000)),
             "Description": f"Synthetic test data from run {run_id}",
         })
