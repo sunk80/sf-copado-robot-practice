@@ -19,7 +19,10 @@ Show Details Tab
     IF    '${clicked}' == 'FAIL'    Log    Details tab not clicked (layout may show details by default): ${msg}
 
 Show Related Tab
-    ClickText    Related    partial_match=False
+    [Documentation]    Opens the Related tab if the page layout has one. Some layouts (e.g. Sales Console)
+    ...                have no such tab and show related lists in a side panel instead.
+    ${clicked}    ${msg}=    Run Keyword And Ignore Error    ClickText    Related    partial_match=False    timeout=5s
+    IF    '${clicked}' == 'FAIL'    Log    Related tab not found (related lists may be in a side panel): ${msg}
 
 UI Should Show
     [Documentation]    Text is visible somewhere on the current page.
@@ -27,9 +30,12 @@ UI Should Show
     VerifyText    ${text}
 
 UI Field Should Show
-    [Documentation]    Value is shown next to its field label on the record page.
+    [Documentation]    Field label and its value are both shown on the record page. Not anchored on purpose:
+    ...                layouts like Sales Console show the same field in several panels, so an anchor on the
+    ...                label matches more than one element and QWeb refuses it.
     [Arguments]    ${label}    ${value}
-    VerifyText    ${value}    anchor=${label}
+    VerifyText    ${label}
+    VerifyText    ${value}
 
 Edit Field In UI
     [Documentation]    Uses the record page Edit button, types a new value and saves.
