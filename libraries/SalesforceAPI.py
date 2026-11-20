@@ -62,21 +62,27 @@ class SalesforceAPI:
                 "Salesforce CLI 'sf' not found. Install it (npm install -g @salesforce/cli) "
                 "or set SF_ACCESS_TOKEN and SF_INSTANCE_URL."
             )
-        proc = subprocess.run(
-            [exe, "org", "display", "--target-org", alias, "--json"],
-            capture_output=True, text=True, timeout=180,
-        )
-        try:
-            data = json.loads(proc.stdout)
-        except json.JSONDecodeError as err:
-            raise RuntimeError(f"Could not read 'sf org display' output: {proc.stderr.strip()}") from err
-        if data.get("status") != 0 or "result" not in data:
-            raise RuntimeError(
-                f"'sf org display' failed for alias '{alias}': {data.get('message')}. "
-                f"Log in first: sf org login web --alias {alias}"
-            )
-        result = data["result"]
-        return result["accessToken"], result["instanceUrl"]
+        def run(*args: str) -> dict:
+            proc = subprocess.run([exe, *args, "--json"], capture_output=True, text=True, timeout=180)
+            try:
+                data = json.loads(proc.stdout)
+            except json.JSONDecodeError as err:
+                raise RuntimeError(f"Could not read 'sf {' '.join(args)}' output: {proc.stderr.strip()}") from err
+            if data.get("status") != 0 or "result" not in data:
+                raise RuntimeError(
+                    f"'sf {' '.join(args)}' failed for alias '{alias}': {data.get('message')}. "
+                    f"Log in first: sf org login web --alias {alias}"
+                )
+            return data["result"]
+
+        info = run("org", "display", "--target-org", alias)
+        # Recent CLI versions redact the token in 'org display'; a dedicated command reveals it.
+        token = info.get("accessToken", "")
+        if not token or "REDACTED" in token.upper():
+            token = run("org", "auth", "show-access-token", "--target-org", alias).get("accessToken", "")
+        if not token:
+            raise RuntimeError(f"Could not obtain an access token for alias '{alias}' from the Salesforce CLI.")
+        return token, info["instanceUrl"]
 
     def _client(self) -> Salesforce:
         if self.sf is None:
