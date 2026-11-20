@@ -1,0 +1,49 @@
+name: Regression
+
+on:
+  schedule:
+    - cron: "23 6 * * *"   # nightly 06:23 UTC (~1:23 am New York)
+  workflow_dispatch:
+    inputs:
+      custom_rules:
+        description: Run the custom validation rule test (rule must exist in the org)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: salesforce-org
+  cancel-in-progress: false
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-sf-robot
+        with:
+          sfdx-auth-url: ${{ secrets.SFDX_AUTH_URL }}
+
+      - name: Run smoke + regression suites
+        env:
+          CUSTOM_RULES: ${{ inputs.custom_rules || false }}
+        run: >
+          robot --argumentfile config/regression.args
+          --variable HEADLESS:True
+          --variable "CUSTOM_RULES:$CUSTOM_RULES"
+          tests
+
+      - name: Summary
+        if: always()
+        run: python tools/ci_summary.py results/regression/output.xml >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression-results
+          path: results/regression
+          retention-days: 14

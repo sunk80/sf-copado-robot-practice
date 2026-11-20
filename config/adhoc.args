@@ -1,0 +1,7 @@
+# Adhoc one-time tasks. Always add the task tag, then the folder LAST, e.g.
+#   robot --argumentfile config/adhoc.args --include bulk tests/adhoc
+#   robot --argumentfile config/adhoc.args --include cleanup tests/adhoc
+--name Adhoc
+--pythonpath libraries
+--outputdir results/adhoc
+--loglevel INFO

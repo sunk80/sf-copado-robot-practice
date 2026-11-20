@@ -1,0 +1,91 @@
+name: Adhoc (bulk load / cleanup)
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: What to run
+        type: choice
+        options: [bulk, cleanup]
+        default: bulk
+      object:
+        description: Salesforce object
+        default: Account
+      operation:
+        description: Bulk operation
+        type: choice
+        options: [insert, update, upsert]
+        default: insert
+      file:
+        description: CSV path in the repo (leave empty to generate synthetic Accounts)
+        default: ""
+      rows:
+        description: Rows to generate when no file is given
+        default: "200"
+      external_id:
+        description: External Id field (upsert only)
+        default: ""
+      keep:
+        description: Keep loaded data (unchecked = roll back after checks)
+        type: boolean
+        default: false
+      dry_run:
+        description: Pre-check only, load/delete nothing
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: salesforce-org
+  cancel-in-progress: false
+
+jobs:
+  adhoc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-sf-robot
+        with:
+          sfdx-auth-url: ${{ secrets.SFDX_AUTH_URL }}
+
+      # Inputs are passed through env vars (not inlined) so they cannot inject shell code.
+      - name: Run adhoc task
+        env:
+          TASK: ${{ inputs.task }}
+          OBJECT: ${{ inputs.object }}
+          OPERATION: ${{ inputs.operation }}
+          FILE: ${{ inputs.file }}
+          ROWS: ${{ inputs.rows }}
+          EXTERNAL_ID: ${{ inputs.external_id }}
+          KEEP: ${{ inputs.keep }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          robot --argumentfile config/adhoc.args \
+            --include "$TASK" \
+            --variable HEADLESS:True \
+            --variable "OBJECT:$OBJECT" \
+            --variable "OPERATION:$OPERATION" \
+            --variable "FILE:$FILE" \
+            --variable "ROWS:$ROWS" \
+            --variable "EXTERNAL_ID:$EXTERNAL_ID" \
+            --variable "KEEP:$KEEP" \
+            --variable "DRY_RUN:$DRY_RUN" \
+            tests/adhoc
+
+      - name: Summary
+        if: always()
+        run: python tools/ci_summary.py results/adhoc/output.xml >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: adhoc-results
+          path: |
+            results/adhoc
+            results/bulk
+            results/recon
+          retention-days: 30

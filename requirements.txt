@@ -1,0 +1,6 @@
+# Python 3.10 - 3.12 (QWeb does not support newer Python yet)
+robotframework>=7.0,<8.0
+QWeb>=3.4
+simple-salesforce>=1.12
+requests>=2.31
+Faker>=24.0

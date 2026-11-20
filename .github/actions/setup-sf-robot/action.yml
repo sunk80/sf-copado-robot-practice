@@ -1,0 +1,44 @@
+name: Set up Robot Framework + Salesforce CLI
+description: Installs Python deps and the Salesforce CLI, then logs in to the org from an SFDX auth URL.
+inputs:
+  sfdx-auth-url:
+    description: SFDX auth URL of the org (store it as the SFDX_AUTH_URL repository secret)
+    required: true
+  org-alias:
+    description: Alias the tests use (SF_ORG_ALIAS)
+    default: devorg
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+        cache: pip
+
+    - name: Install Python dependencies
+      shell: bash
+      run: pip install -r requirements.txt
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+
+    - name: Install Salesforce CLI
+      shell: bash
+      run: npm install --global @salesforce/cli
+
+    - name: Log in to the org
+      shell: bash
+      env:
+        SFDX_AUTH_URL: ${{ inputs.sfdx-auth-url }}
+        ORG_ALIAS: ${{ inputs.org-alias }}
+      run: |
+        if [ -z "$SFDX_AUTH_URL" ]; then
+          echo "::error::SFDX_AUTH_URL secret is not set. See README > Run in GitHub Actions."
+          exit 1
+        fi
+        umask 077
+        printf '%s' "$SFDX_AUTH_URL" > "$RUNNER_TEMP/sfdx_auth.txt"
+        sf org login sfdx-url --sfdx-url-file "$RUNNER_TEMP/sfdx_auth.txt" --alias "$ORG_ALIAS" > /dev/null
+        rm -f "$RUNNER_TEMP/sfdx_auth.txt"
+        echo "Logged in as alias $ORG_ALIAS"

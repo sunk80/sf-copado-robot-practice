@@ -1,0 +1,7 @@
+# Smoke: fast critical checks. Run: robot --argumentfile config/smoke.args tests
+--name Smoke
+--include smoke
+--exclude adhoc
+--pythonpath libraries
+--outputdir results/smoke
+--loglevel INFO

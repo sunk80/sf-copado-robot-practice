@@ -1,0 +1,7 @@
+# Regression: smoke + full regression (nightly). Run: robot --argumentfile config/regression.args tests
+--name Regression
+--include smokeORregression
+--exclude adhoc
+--pythonpath libraries
+--outputdir results/regression
+--loglevel INFO

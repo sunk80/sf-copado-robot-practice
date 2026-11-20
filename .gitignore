@@ -1,0 +1,23 @@
+# Test output (may contain org names and record data)
+results/
+output.xml
+log.html
+report.html
+*.png
+
+# Secrets - never commit these
+.env
+*.env
+sfdx_auth*.txt
+*authurl*
+*.key
+
+# Python / tooling
+__pycache__/
+*.pyc
+.venv/
+venv/
+.idea/
+.vscode/
+.sf/
+.sfdx/
